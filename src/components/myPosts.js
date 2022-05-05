@@ -6,16 +6,13 @@ import { Card,
   CardActionArea,
   Box,
   Grid, 
-  Toolbar, 
   Typography, 
-  Button, 
-  IconButton} from "@mui/material";
+  Button} from "@mui/material";
 import SinglePost from "./singlePost";
 import EditPost from "./editPost";
 
-function MyPosts(){
+function MyPosts({selectPost}){
   const [allPosts, setAllPosts] = useState([])
-  const [selectedPost, selectPost] = useState({});
   const user = useContext(UserState)
   const navigate = useNavigate()
 
@@ -23,34 +20,41 @@ function MyPosts(){
     console.log(user)
     if(user.username === undefined){
       navigate("/SignIn")
+    } else{
+      getMyPosts()
     }
-    getMyPosts()
   },[])
 
   const getMyPosts = function(){
-    fetch(`${API_URL}/posts/${user.id}`)
+    console.log(user.id)
+    fetch(`${API_URL}/posts/user/${user.id}`)
     .then(res => res.json())
     .then(data => {
       console.log(data)
       setAllPosts(data)})
+    .catch(err =>{
+      console.log(err)
+    })
   }
-
 
   return(
     <Box sx={{flexGrow: 1}}>
       <Routes>
-      <Route path="/:postId" element = {<div>
+      {/* <Route path="/:postId" element = {<div>
         <SinglePost post = {selectedPost}/>
         <Button variant="outlined" onClick={() => navigate(`${selectedPost.id}/edit`)}>Edit Post</Button>
-        </div>}/>
-      <Route path="/:postId/edit" element = {<EditPost post = {selectedPost}/>}/>
+        </div>}/> */}
+      
       </Routes>
-      <Typography variant="h2">My Posts</Typography>
+      <Box display='flex' justifyContent='center' alignContent='center' margin={10}>
       <Grid container spacing={2} maxWidth='1000px'>
+        <Grid item xs={12}>
+          <Typography variant="h2">My Posts</Typography>
+        </Grid>
         {allPosts.map((post)=>(
           <Grid item xs={6}>
-            <Card>
-              <CardActionArea onClick={()=>{
+            <Card >
+              <CardActionArea sx={{minHeight:'105px'}} onClick={()=>{
                 selectPost(post)
                 navigate(`${post.id}`)
                 }}>
@@ -58,11 +62,8 @@ function MyPosts(){
                   <Typography variant="h4">
                     {post.title}
                   </Typography>
-                  <Typography variant="h6">
-                    Author: {user.first_name} {user.last_name}
-                  </Typography>
                   <Typography variant="body">
-                    {post.content.slice(0,100)}...
+                    {post.content.slice(0,100)} {post.content.length > 100 ? '...' : ""}
                   </Typography>
                 </CardContent>
               </CardActionArea>
@@ -70,6 +71,7 @@ function MyPosts(){
           </Grid>
         ))}
       </Grid>
+      </Box>
     </Box>
   )
 }

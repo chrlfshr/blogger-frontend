@@ -5,33 +5,30 @@ import { Card,
   CardContent,
   CardActionArea,
   Box,
-  Grid, 
-  Toolbar, 
-  Typography, 
-  Button, 
-  IconButton} from "@mui/material";
+  Grid,  
+  Typography} from "@mui/material";
 import SinglePost from "./singlePost";
 
-function PostList(){
-  const [selectedPost, selectPost] = useState({});
+function PostList({selectPost}){
   const allPosts = useContext(PostContext)
   const navigate = useNavigate()
-
 
   console.log(allPosts)
 
   return(
     <Box sx={{flexGrow: 1}}>
-      <Routes>
+      {/* <Routes>
       <Route path="/:postId" element = {<SinglePost post = {selectedPost}/>}/>
-      </Routes>
-      <Typography variant="h2">All Posts</Typography>
+      </Routes> */}
+      <Box display='flex' justifyContent='center' alignContent='center' margin={10}>
       <Grid container spacing={2} maxWidth='1000px'>
+        <Grid item xs={12}>
+        <Typography variant="h2">All Posts</Typography>
+        </Grid>
         {allPosts.map((post)=>(
           <Grid item xs={6}>
             <Card>
-              <CardActionArea onClick={()=>{
-                console.log("HERE")
+              <CardActionArea sx={{minHeight:'153px'}} onClick={()=>{
                 selectPost(post)
                 navigate(`${post.id}`)
                 }}>
@@ -43,7 +40,7 @@ function PostList(){
                     Author: {post.first_name} {post.last_name}
                   </Typography>
                   <Typography variant="body">
-                    {post.content.slice(0,100)}...
+                    {post.content.slice(0,100)}{post.content.length > 100 ? '...' : ""}
                   </Typography>
                 </CardContent>
               </CardActionArea>
@@ -51,6 +48,7 @@ function PostList(){
           </Grid>
         ))}
       </Grid>
+      </Box>
     </Box>
   )
 }

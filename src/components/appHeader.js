@@ -18,7 +18,6 @@ function AppHeader(){
           <Button color="inherit" onClick={()=> navigate("/")}>All Posts</Button>
           <Button color="inherit" onClick={()=> navigate("/MyPosts")}>My Posts</Button>
           <Button color="inherit" onClick={()=> navigate("/CreatePost")}>New Post</Button>
-          
           <Button color="inherit" onClick={()=> navigate("/SignIn")}>Login</Button>
           <Button color="inherit" onClick={()=> navigate("/CreateAccount")}>Create Account</Button>
           
