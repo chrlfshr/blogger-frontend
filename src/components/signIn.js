@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import { API_URL} from "../App";
-import {Routes, Route, useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 import {
   Box,
   Grid, 
@@ -19,7 +19,7 @@ function SignIn({setUser}){
   const navigate = useNavigate()
 
   const checkSignIn = function(){
-    fetch(`${API_URL}/users/${signIn.username}`, {
+    fetch(`${API_URL}/users/login`, {
       method:'POST',
       headers:{
         'Content-Type': 'application/json'

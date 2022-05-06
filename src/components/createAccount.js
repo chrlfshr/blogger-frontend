@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import { API_URL} from "../App";
-import {Routes, Route, useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 import {
   Box,
   Grid, 
@@ -18,14 +18,6 @@ function CreateAccount(){
   })
   const [usernameError, setUsernameError] = useState(false)
   const navigate = useNavigate()
-
-  useEffect(()=>{
-    console.log(newAccount)
-  },[newAccount])
-
-  useEffect(()=>{
-    console.log(usernameError)
-  },[usernameError])
 
   const createAccount = function(){
     fetch(`${API_URL}/users`, {

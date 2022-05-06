@@ -1,6 +1,6 @@
-import React, {useContext, useEffect, useState} from "react";
-import { API_URL, PostUpdate } from "../App";
-import {Routes, Route, useNavigate} from "react-router-dom"
+import React, {useContext, useState} from "react";
+import { API_URL, PostUpdate, UserState } from "../App";
+import {useNavigate} from "react-router-dom"
 import { Grid,
   Box,
   Typography, 
@@ -9,21 +9,26 @@ import { Grid,
 
 function EditPost({post}){
   const navigate = useNavigate()
+  const {user, setUser} = useContext(UserState)
   const [postData, setPostData] = useState(post)
   const getPosts = useContext(PostUpdate)
 
   const patchPost = function(){
-    fetch(`${API_URL}/posts/${post.id}`, {
+    fetch(`${API_URL}/posts`, {
       method:'PATCH',
       headers:{
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': user
       },
-      body: JSON.stringify(postData)
+      body: JSON.stringify({id: postData.id, title: postData.title, content: postData.content})
     })
-    .then(res => {
-      console.log(res)
+    .then(res => res.json())
+    .then(data => {
+      if(data.error === "Invalid Token"){
+        setUser(undefined)
+        navigate("/SignIn")
+      }
       getPosts()
-      // getMyPosts()
       navigate('/MyPosts')
     })
     .catch(err =>{
@@ -32,15 +37,20 @@ function EditPost({post}){
   }
   
   const deletePost = function(){
-    fetch(`${API_URL}/posts/${post.id}`, {
+    fetch(`${API_URL}/posts`, {
       method:'DELETE',
       headers:{
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': user
       },
       body: JSON.stringify(postData)
     })
-    .then(res => {
-      console.log(res)
+    .then(res => res.json())
+    .then(data => {
+      if(data.error === "Invalid Token"){
+        setUser(undefined)
+        navigate("/SignIn")
+      }
       getPosts()
       // getMyPosts()
       navigate("/MyPosts")

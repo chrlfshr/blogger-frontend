@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import { API_URL, UserState, PostUpdate } from "../App";
-import {Routes, Route, useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 import { Grid,
   Box,
   Typography, 
@@ -9,29 +9,35 @@ import { Grid,
 
 function CreatePost(){
   const navigate = useNavigate()
-  const user = useContext(UserState)
+  const {user, setUser} = useContext(UserState)
   const getPosts = useContext(PostUpdate)
   const [postData, setPostData] = useState({
-    user_id: user.id,
+    title: "",
+    content: ""
   })
 
   useEffect(()=>{
     if(user === undefined){
       navigate("/SignIn")
     }
-  },[])
+  },[user])
 
   const postPost = function(){
     const date =  new Date
     fetch(`${API_URL}/posts`, {
       method:'POST',
       headers:{
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': user
       },
       body: JSON.stringify({...postData, creation_date: date})
     })
-    .then(res => {
-      console.log(res)
+    .then(res => res.json())
+    .then(data => {
+      if(data.error === "Invalid Token"){
+        setUser(undefined)
+        navigate("/SignIn")
+      }
       getPosts()
       navigate("/MyPosts")
     })

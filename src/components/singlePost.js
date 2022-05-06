@@ -1,15 +1,5 @@
-import React, {useContext, useEffect, useState} from "react";
-import { PostContext } from "../App";
-import {Routes, Route, useNavigate} from "react-router-dom"
-import { Card,
-  CardContent,
-  CardActionArea,
-  Box,
-  Grid, 
-  Toolbar, 
-  Typography, 
-  Button, 
-  IconButton} from "@mui/material";
+import React from "react";
+import {Box, Grid, Typography,} from "@mui/material";
 
 function SinglePost({post}){
 

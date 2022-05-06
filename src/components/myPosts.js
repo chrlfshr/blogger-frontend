@@ -1,32 +1,27 @@
 import React, {useContext, useEffect, useState} from "react";
 import { API_URL, UserState } from "../App";
-import {Routes, Route, useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 import { Card,
   CardContent,
   CardActionArea,
   Box,
   Grid, 
-  Typography, 
-  Button} from "@mui/material";
-import SinglePost from "./singlePost";
-import EditPost from "./editPost";
+  Typography} from "@mui/material";
 
 function MyPosts({selectPost}){
   const [allPosts, setAllPosts] = useState([])
-  const user = useContext(UserState)
+  const {user, setUser} = useContext(UserState)
   const navigate = useNavigate()
 
   useEffect(()=>{
-    console.log(user)
     if(user === undefined){
       navigate("/SignIn")
     } else{
       getMyPosts()
     }
-  },[])
+  },[user])
 
   const getMyPosts = function(){
-    console.log(user.id)
     fetch(`${API_URL}/posts/user/`,{
       headers:{
         'Authorization': user
@@ -34,8 +29,13 @@ function MyPosts({selectPost}){
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data)
-      setAllPosts(data)})
+      if(data.error === "Invalid Token"){
+        setUser(undefined)
+        navigate("/SignIn")
+      }else{
+        setAllPosts(data)
+      }
+    })
     .catch(err =>{
       console.log(err)
     })
@@ -48,9 +48,9 @@ function MyPosts({selectPost}){
         <Grid item xs={12}>
           <Typography variant="h2">My Posts</Typography>
         </Grid>
-        {allPosts.map((post)=>(
-          <Grid item xs={6}>
-            <Card >
+        {allPosts.map((post, i)=>(
+          <Grid key={i} item xs={6}>
+            <Card>
               <CardActionArea sx={{minHeight:'105px'}} onClick={()=>{
                 selectPost(post)
                 navigate(`${post.id}`)
@@ -60,7 +60,10 @@ function MyPosts({selectPost}){
                     {post.title}
                   </Typography>
                   <Typography variant="body">
-                    {post.content.slice(0,100)} {post.content.length > 100 ? '...' : ""}
+                    {post.content.slice(0,100)}{post.content.length > 100 ? '...' : ""}
+                  </Typography>
+                  <Typography variant="body2">
+                    Created: {post.creation_date}
                   </Typography>
                 </CardContent>
               </CardActionArea>

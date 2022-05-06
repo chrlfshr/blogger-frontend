@@ -1,6 +1,6 @@
 import './App.css';
 import React, {useEffect, useState} from 'react';
-import { Link, Route, Routes, useNavigate } from "react-router-dom"
+import {Route, Routes, useNavigate } from "react-router-dom"
 import {Button} from "@mui/material";
 
 
@@ -52,7 +52,7 @@ function App() {
     <div className="App">
       <AppHeader/>
       <main>
-      <UserState.Provider value={user}>
+      <UserState.Provider value={{user, setUser}}>
       <PostUpdate.Provider value={getPosts}>
       <PostContext.Provider value={posts}>
         <Routes>

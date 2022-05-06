@@ -1,32 +1,26 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext} from "react";
 import { PostContext } from "../App";
-import {Routes, Route, useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 import { Card,
   CardContent,
   CardActionArea,
   Box,
   Grid,  
   Typography} from "@mui/material";
-import SinglePost from "./singlePost";
 
 function PostList({selectPost}){
   const allPosts = useContext(PostContext)
   const navigate = useNavigate()
 
-  console.log(allPosts)
-
   return(
     <Box sx={{flexGrow: 1}}>
-      {/* <Routes>
-      <Route path="/:postId" element = {<SinglePost post = {selectedPost}/>}/>
-      </Routes> */}
       <Box display='flex' justifyContent='center' alignContent='center' margin={10}>
       <Grid container spacing={2} maxWidth='1000px'>
         <Grid item xs={12}>
         <Typography variant="h2">All Posts</Typography>
         </Grid>
-        {allPosts.map((post)=>(
-          <Grid item xs={6}>
+        {allPosts.map((post, i)=>(
+          <Grid key={i} item xs={6}>
             <Card>
               <CardActionArea sx={{minHeight:'153px'}} onClick={()=>{
                 selectPost(post)
@@ -41,6 +35,9 @@ function PostList({selectPost}){
                   </Typography>
                   <Typography variant="body">
                     {post.content.slice(0,100)}{post.content.length > 100 ? '...' : ""}
+                  </Typography>
+                  <Typography variant="body2">
+                    Created: {post.creation_date}
                   </Typography>
                 </CardContent>
               </CardActionArea>
