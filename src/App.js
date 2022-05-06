@@ -14,8 +14,7 @@ import CreatePost from './components/createPost';
 import SinglePost from "./components/singlePost";
 import EditPost from './components/editPost';
 
-export const API_URL = process.env.API_URL;
-console.log(API_URL)
+export const API_URL ="https://blogger-cf-api.herokuapp.com";
 
 export const PostContext = React.createContext(); 
 export const PostUpdate = React.createContext();
