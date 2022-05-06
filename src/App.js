@@ -1,3 +1,4 @@
+
 import './App.css';
 import React, {useEffect, useState} from 'react';
 import {Route, Routes, useNavigate } from "react-router-dom"
@@ -13,10 +14,10 @@ import CreatePost from './components/createPost';
 import SinglePost from "./components/singlePost";
 import EditPost from './components/editPost';
 
+export const API_URL = process.env.API_URL;
+console.log(API_URL)
 
-export const API_URL = "http://localhost:8080"
-
-export const PostContext = React.createContext();
+export const PostContext = React.createContext(); 
 export const PostUpdate = React.createContext();
 export const UserState = React.createContext();
 
