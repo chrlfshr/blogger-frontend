@@ -28,7 +28,7 @@ function SignIn({setUser}){
     })
     .then(res => res.json())
     .then(data =>{
-      if(data.username !== undefined){
+      if(data.message !== "failed to sign in"){
         setUser(data)
         navigate('/MyPosts')
       } else{

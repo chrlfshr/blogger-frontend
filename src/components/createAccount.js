@@ -36,7 +36,7 @@ function CreateAccount(){
       body: JSON.stringify(newAccount)
     })
     .then(res => {
-      if(res.status === 406){
+      if(res.status === 400){
         console.log('username error')
         setUsernameError(true)
       } else{

@@ -18,7 +18,7 @@ function MyPosts({selectPost}){
 
   useEffect(()=>{
     console.log(user)
-    if(user.username === undefined){
+    if(user === undefined){
       navigate("/SignIn")
     } else{
       getMyPosts()
@@ -27,7 +27,11 @@ function MyPosts({selectPost}){
 
   const getMyPosts = function(){
     console.log(user.id)
-    fetch(`${API_URL}/posts/user/${user.id}`)
+    fetch(`${API_URL}/posts/user/`,{
+      headers:{
+        'Authorization': user
+      }
+    })
     .then(res => res.json())
     .then(data => {
       console.log(data)
@@ -39,13 +43,6 @@ function MyPosts({selectPost}){
 
   return(
     <Box sx={{flexGrow: 1}}>
-      <Routes>
-      {/* <Route path="/:postId" element = {<div>
-        <SinglePost post = {selectedPost}/>
-        <Button variant="outlined" onClick={() => navigate(`${selectedPost.id}/edit`)}>Edit Post</Button>
-        </div>}/> */}
-      
-      </Routes>
       <Box display='flex' justifyContent='center' alignContent='center' margin={10}>
       <Grid container spacing={2} maxWidth='1000px'>
         <Grid item xs={12}>

@@ -23,7 +23,7 @@ export const UserState = React.createContext();
 function App() {
 
   const [posts, setPosts] = useState([])
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState(undefined)
   const [selectedPost, selectPost] = useState({});
 
   const navigate = useNavigate()

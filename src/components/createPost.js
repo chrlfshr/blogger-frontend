@@ -16,7 +16,7 @@ function CreatePost(){
   })
 
   useEffect(()=>{
-    if(user.id === undefined){
+    if(user === undefined){
       navigate("/SignIn")
     }
   },[])
