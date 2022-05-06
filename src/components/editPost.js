@@ -77,11 +77,6 @@ function EditPost({post}){
   return(
     <Box display='flex' justifyContent='center' margin={10}>
       <Grid container spacing={2} width="800px">
-        {/* <Grid item xs={12}>
-          <Typography variant="h4" gutterBottom >
-          Edit Post
-          </Typography>
-        </Grid> */}
         <Grid item xs={3}/>
         <Grid item xs={6}>
           <TextField variant="outlined" label='Title' fullWidth value={postData.title}
@@ -100,10 +95,10 @@ function EditPost({post}){
         </Grid>
         <Grid item xs={3}/>
         <Grid item xs={3}>
-          <Button variant='outlined' onClick={patchPost}>Update Post</Button>
+          <Button variant='contained' onClick={patchPost}>Update Post</Button>
         </Grid>
         <Grid item xs={3}>
-          <Button variant='outlined' color="error" onClick={deletePost}>Delete Post</Button>
+          <Button variant='contained' color="error" onClick={deletePost}>Delete Post</Button>
         </Grid>
         <Grid item xs={3}/>
       </Grid> 

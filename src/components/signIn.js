@@ -62,7 +62,7 @@ function SignIn({setUser}){
         <Typography variant="button" gutterBottom color="error">Error: Invalid Username or Password</Typography>
       </Grid>}
       <Grid item xs={12}>
-        <Button variant='outlined' onClick={checkSignIn}>Sign In</Button>
+        <Button variant='contained' onClick={checkSignIn}>Sign In</Button>
       </Grid>
     </Grid>
     

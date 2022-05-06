@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import {useNavigate} from "react-router-dom"
-import { API_URL, UserState } from "../App";
+import {UserState } from "../App";
 import { AppBar,
    Box, 
    Toolbar, 
@@ -20,6 +20,7 @@ function AppHeader(){
           {user !== null && <Button color="inherit" onClick={()=> navigate("/MyPosts")}>My Posts</Button>}
           {user !== null && <Button color="inherit" onClick={()=> navigate("/CreatePost")}>New Post</Button>}
           {user !== null && <Button color="inherit" onClick={()=> {
+            sessionStorage.removeItem("accessKey");
             setUser(null)
             navigate("/")
             }}>Logout</Button>}

@@ -23,14 +23,14 @@ function CreatePost(){
   },[user])
 
   const postPost = function(){
-    const date =  new Date
+    const date = Date()
     fetch(`${API_URL}/posts`, {
       method:'POST',
       headers:{
         'Content-Type': 'application/json',
         'Authorization': user
       },
-      body: JSON.stringify({...postData, creation_date: date})
+      body: JSON.stringify({...postData, creation_date: date.slice(0, date.indexOf("("))})
     })
     .then(res => res.json())
     .then(data => {
@@ -49,7 +49,6 @@ function CreatePost(){
     })
   }
   
-
   return(
     <Box display='flex' justifyContent='center' margin={10}>
       <Grid container spacing={2} width="800px">

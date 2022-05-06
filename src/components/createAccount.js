@@ -70,7 +70,7 @@ function CreateAccount(){
         <Typography variant="button" gutterBottom color="error">Error: {`${usernameError}`}</Typography>
       </Grid>}
       <Grid item xs={12}>
-        <Button variant='outlined' onClick={createAccount}>Submit</Button>
+        <Button variant='contained' onClick={createAccount}>Submit</Button>
       </Grid>
     </Grid>
     
