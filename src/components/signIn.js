@@ -30,6 +30,7 @@ function SignIn({setUser}){
     .then(data =>{
       if(data.message !== "failed to sign in"){
         setUser(data)
+        sessionStorage.setItem("accessKey", data)
         navigate('/MyPosts')
       } else{
         setSignInError(true)

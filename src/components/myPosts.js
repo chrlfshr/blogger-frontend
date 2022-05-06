@@ -14,7 +14,7 @@ function MyPosts({selectPost}){
   const navigate = useNavigate()
 
   useEffect(()=>{
-    if(user === undefined){
+    if(user === null){
       navigate("/SignIn")
     } else{
       getMyPosts()
@@ -30,8 +30,10 @@ function MyPosts({selectPost}){
     .then(res => res.json())
     .then(data => {
       if(data.error === "Invalid Token"){
-        setUser(undefined)
+        sessionStorage.removeItem("accessKey");
+        setUser(null)
         navigate("/SignIn")
+        alert("User Session Has Expired")
       }else{
         setAllPosts(data)
       }

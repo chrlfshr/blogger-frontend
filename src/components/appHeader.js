@@ -17,14 +17,14 @@ function AppHeader(){
         <Toolbar>
         <Typography variant="h4" component="div" sx={{flexGrow: 1, textAlign: 'left'}}>Gabble: Get Your Thoughts Out</Typography>
           <Button color="inherit" onClick={()=> navigate("/")}>All Posts</Button>
-          {user !== undefined && <Button color="inherit" onClick={()=> navigate("/MyPosts")}>My Posts</Button>}
-          {user !== undefined && <Button color="inherit" onClick={()=> navigate("/CreatePost")}>New Post</Button>}
-          {user !== undefined && <Button color="inherit" onClick={()=> {
-            setUser(undefined)
+          {user !== null && <Button color="inherit" onClick={()=> navigate("/MyPosts")}>My Posts</Button>}
+          {user !== null && <Button color="inherit" onClick={()=> navigate("/CreatePost")}>New Post</Button>}
+          {user !== null && <Button color="inherit" onClick={()=> {
+            setUser(null)
             navigate("/")
             }}>Logout</Button>}
-          {user === undefined && <Button color="inherit" onClick={()=> navigate("/SignIn")}>Login</Button>}
-          {user === undefined && <Button color="inherit" onClick={()=> navigate("/CreateAccount")}>Create Account</Button>}
+          {user === null && <Button color="inherit" onClick={()=> navigate("/SignIn")}>Login</Button>}
+          {user === null && <Button color="inherit" onClick={()=> navigate("/CreateAccount")}>Create Account</Button>}
           
         </Toolbar>
       </AppBar>

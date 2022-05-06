@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { API_URL, PostUpdate, UserState } from "../App";
 import {useNavigate} from "react-router-dom"
 import { Grid,
@@ -13,6 +13,12 @@ function EditPost({post}){
   const [postData, setPostData] = useState(post)
   const getPosts = useContext(PostUpdate)
 
+  useEffect(()=>{
+    if(post.id === undefined){
+      navigate('/MyPosts')
+    }
+  },[])
+
   const patchPost = function(){
     fetch(`${API_URL}/posts`, {
       method:'PATCH',
@@ -25,11 +31,15 @@ function EditPost({post}){
     .then(res => res.json())
     .then(data => {
       if(data.error === "Invalid Token"){
-        setUser(undefined)
+        sessionStorage.removeItem("accessKey");
+        setUser(null)
         navigate("/SignIn")
+        alert("User Session Has Expired")
+      } else{
+        getPosts()
+        navigate('/MyPosts')
       }
-      getPosts()
-      navigate('/MyPosts')
+      
     })
     .catch(err =>{
       console.log(err)
@@ -48,12 +58,16 @@ function EditPost({post}){
     .then(res => res.json())
     .then(data => {
       if(data.error === "Invalid Token"){
-        setUser(undefined)
+        
+        sessionStorage.removeItem("accessKey");
+        setUser(null)
         navigate("/SignIn")
+        alert("User Session Has Expired")
+      } else{
+        getPosts()
+        navigate("/MyPosts")
       }
-      getPosts()
-      // getMyPosts()
-      navigate("/MyPosts")
+      
     })
     .catch(err =>{
       console.log(err)

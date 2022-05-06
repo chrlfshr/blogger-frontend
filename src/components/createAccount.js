@@ -27,10 +27,10 @@ function CreateAccount(){
       },
       body: JSON.stringify(newAccount)
     })
-    .then(res => {
-      if(res.status === 400){
-        console.log('username error')
-        setUsernameError(true)
+    .then(res => res.json())
+    .then(data => {
+      if(data.error !== undefined){
+        setUsernameError(data.error)
       } else{
         navigate("/SignIn")
       }
@@ -57,6 +57,7 @@ function CreateAccount(){
       </Grid>
       <Grid item xs={12}>
         <TextField variant="outlined" label='Username' fullWidth
+        helperText="Username must be at least 3 characters long"
         onChange={(e)=> setNewAccount({...newAccount, username: e.target.value})}/>
       </Grid>
       <Grid item xs={12}>
@@ -66,7 +67,7 @@ function CreateAccount(){
       </Grid>
       {usernameError && 
       <Grid item xs={12}>
-        <Typography variant="button" gutterBottom color="error">Error: Username already taken</Typography>
+        <Typography variant="button" gutterBottom color="error">Error: {`${usernameError}`}</Typography>
       </Grid>}
       <Grid item xs={12}>
         <Button variant='outlined' onClick={createAccount}>Submit</Button>

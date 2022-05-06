@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {Box, Grid, Typography,} from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function SinglePost({post}){
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(post.id === undefined){
+      navigate('/')
+    }
+  },[])
 
   return(
     <Box display='flex' justifyContent='center' margin={10}>

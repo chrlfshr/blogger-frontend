@@ -17,7 +17,7 @@ function CreatePost(){
   })
 
   useEffect(()=>{
-    if(user === undefined){
+    if(user === null){
       navigate("/SignIn")
     }
   },[user])
@@ -35,11 +35,14 @@ function CreatePost(){
     .then(res => res.json())
     .then(data => {
       if(data.error === "Invalid Token"){
-        setUser(undefined)
+        sessionStorage.removeItem("accessKey");
+        setUser(null)
         navigate("/SignIn")
+        alert("User Session Has Expired")
+      }else{
+        getPosts()
+        navigate("/MyPosts")
       }
-      getPosts()
-      navigate("/MyPosts")
     })
     .catch(err =>{
       console.log(err)

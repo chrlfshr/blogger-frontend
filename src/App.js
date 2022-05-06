@@ -14,7 +14,8 @@ import CreatePost from './components/createPost';
 import SinglePost from "./components/singlePost";
 import EditPost from './components/editPost';
 
-export const API_URL ="https://blogger-cf-api.herokuapp.com";
+// export const API_URL ="https://blogger-cf-api.herokuapp.com";
+export const API_URL ="http://localhost:8080";
 
 export const PostContext = React.createContext(); 
 export const PostUpdate = React.createContext();
@@ -23,7 +24,7 @@ export const UserState = React.createContext();
 function App() {
 
   const [posts, setPosts] = useState([])
-  const [user, setUser] = useState(undefined)
+  const [user, setUser] = useState(sessionStorage.getItem("accessKey"))
   const [selectedPost, selectPost] = useState({});
 
   const navigate = useNavigate()
@@ -31,6 +32,7 @@ function App() {
 
   useEffect(()=>{
     getPosts()
+    setUser(sessionStorage.getItem("accessKey"))
   },[])
 
   const getPosts = function(){
@@ -40,13 +42,6 @@ function App() {
       setPosts(data) 
     })
   }
-
-  // const getUsername = async function(id){
-  //   const res = await fetch(API_URL + "/users/username/" + id)
-  //   const data = await res.json()
-  //   console.log(data)
-  //   return data.username
-  // }
 
   return (
     <div className="App">
