@@ -50,9 +50,9 @@ function App() {
 
   return (
     <div className="App">
+      <UserState.Provider value={{user, setUser}}>
       <AppHeader/>
       <main>
-      <UserState.Provider value={{user, setUser}}>
       <PostUpdate.Provider value={getPosts}>
       <PostContext.Provider value={posts}>
         <Routes>
@@ -70,8 +70,8 @@ function App() {
         </Routes>
         </PostContext.Provider>
         </PostUpdate.Provider>
-        </UserState.Provider>
       </main>
+      </UserState.Provider>
     </div>
   );
 }

@@ -63,23 +63,26 @@ function EditPost({post}){
   return(
     <Box display='flex' justifyContent='center' margin={10}>
       <Grid container spacing={2} width="800px">
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <Typography variant="h4" gutterBottom >
           Edit Post
           </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <TextField variant="outlined" label='Title' value={postData.title}
+        </Grid> */}
+        <Grid item xs={3}/>
+        <Grid item xs={6}>
+          <TextField variant="outlined" label='Title' fullWidth value={postData.title}
           onChange={(e)=> setPostData({...postData, title: e.target.value})}/>
         </Grid>
+        <Grid item xs={3}/>
         <Grid item xs={12}>
           <TextField multiline={true} rows={6} variant="outlined" label='Content' fullWidth value={postData.content}
           onChange={(e)=> setPostData({...postData, content: e.target.value})}/>
         </Grid>
-        <Grid item xs={12}>
-          <Typography variant="h6">
-            Created: {post.creation_date}
-          </Typography>
+        <Grid item textAlign='left' xs={6}>
+          <Typography variant="body">Created: {post.creation_date}</Typography>
+        </Grid>
+        <Grid item textAlign='right' xs={6}>
+          <Typography variant="body">Author: {post.first_name} {post.last_name} </Typography>
         </Grid>
         <Grid item xs={3}/>
         <Grid item xs={3}>
